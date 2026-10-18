@@ -43,6 +43,12 @@
                         break;
 
                     case '3':
+                        if (bank.GetAccounts().Count == 0)
+                        {
+                            Console.WriteLine("No account found please open an account first.");
+                            break; 
+                        }
+
                         PrintAccounts(bank.GetAccounts());
 
                         Console.Write("enter account number:");
@@ -65,6 +71,12 @@
                         break;
 
                     case '4':
+                        if (bank.GetAccounts().Count == 0)
+                        {
+                            Console.WriteLine("No account found please open an account first.");
+                            break;
+                        }
+
                         PrintAccounts(bank.GetAccounts());
                         Console.Write("enter account number:");
                         int accnum2 = int.Parse(Console.ReadLine());
@@ -88,6 +100,12 @@
 
 
                     case '5':
+                        if (bank.GetAccounts().Count == 0)
+                        {
+                            Console.WriteLine("No account found please open an account first.");
+                            break;
+                        }
+
                         PrintAccounts(bank.GetAccounts());
 
                         Console.Write("enter sender account number:");
@@ -112,6 +130,12 @@
                         break;
 
                     case '6':
+                        if (bank.GetAccounts().Count == 0)
+                        {
+                            Console.WriteLine("No account found please open an account first.");
+                            break;
+                        }
+
                         PrintAccounts(bank.GetAccounts());
                         Console.Write("enter account number:");
                         int accnum3 = int.Parse(Console.ReadLine());
@@ -140,16 +164,15 @@
                 Console.WriteLine();
 
             }
-
-
-
-
-
-
         }
 
         public static void PrintAccounts(List<Account> accounts)
         { 
+            if(accounts.Count == 0)
+            {
+                Console.WriteLine("no accounts found");
+                return;
+            }
             foreach (Account acc in accounts)
             {
                 Console.WriteLine($"Name: {acc.Name}  Account Number: {acc.AccountNumber}  Balance: {acc.Balance}");
