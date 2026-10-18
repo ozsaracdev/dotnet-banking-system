@@ -13,8 +13,9 @@
                 Console.WriteLine("2) list accounts");
                 Console.WriteLine("3) deposit money");
                 Console.WriteLine("4) withdraw money");
-                Console.WriteLine("5) delete account");
-                Console.WriteLine("6) clear console");
+                Console.WriteLine("5) transfer money");
+                Console.WriteLine("6) delete account");
+                Console.WriteLine("7) clear console");
                 Console.WriteLine("0) exit");
                 Console.Write("make a selection:");
                 char choice = Console.ReadKey().KeyChar;
@@ -85,7 +86,32 @@
 
                         break;
 
+
                     case '5':
+                        PrintAccounts(bank.GetAccounts());
+
+                        Console.Write("enter sender account number:");
+                        int senderNum = int.Parse(Console.ReadLine());
+
+                        Console.Write("enter receiver account number:");
+                        int receiverNum = int.Parse(Console.ReadLine());
+
+                        Console.Write("enter amount to transfer:");
+                        double amount3 = double.Parse(Console.ReadLine());
+
+                        bool isSuccess4 = bank.TransferMoney(senderNum, receiverNum, amount3);
+                         
+                        if(isSuccess4)
+                        {
+                            Console.WriteLine("Successful");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Transaction failed! (Account not found or invalid amount)");
+                        }
+                        break;
+
+                    case '6':
                         PrintAccounts(bank.GetAccounts());
                         Console.Write("enter account number:");
                         int accnum3 = int.Parse(Console.ReadLine());
@@ -102,7 +128,7 @@
                         }
 
                         break;
-                    case '6':
+                    case '7':
                         Console.Clear();
                         break;
 

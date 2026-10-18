@@ -53,7 +53,7 @@ namespace ConsoleApp2
         {
             int index = FindAccountIndex(accountNumber);
 
-            if(index == -1)
+            if (index == -1)
             {
                 return false;
             }
@@ -65,12 +65,32 @@ namespace ConsoleApp2
         {
             int index = FindAccountIndex(accountNumber);
 
-            if ( index == -1) 
+            if (index == -1)
             {
                 return false;
             }
 
             accounts.RemoveAt(index);
+            return true;
+        }
+
+        public bool TransferMoney(int senderNumber, int receiverNumber, double amount)
+        {
+            int senderIndex = FindAccountIndex(senderNumber);
+            int receiverIndex = FindAccountIndex(receiverNumber);
+
+            if (senderIndex == -1 ||  receiverIndex == -1 || senderIndex == receiverIndex)
+            {
+                return false;
+            }
+
+            if (accounts[senderIndex].withdraw(amount) == false)
+            {
+                return false;
+            }
+
+            accounts[receiverIndex].deposit(amount);
+            
             return true;
         }
     }
