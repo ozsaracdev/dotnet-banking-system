@@ -32,10 +32,20 @@
                 switch (choice)
                 {
                     case '1':
-                        Console.Write("Name:");
-                        string name = Console.ReadLine();
+                        string name;
+                        while(true)
+                        {
+                            Console.Write("name:");
+                            name = Console.ReadLine();
 
-                        bank.OpenAccount(name);
+                            if (IsValidName(name))
+                            {
+                                break;
+                            }
+
+                            Console.WriteLine("invalid input");
+                        }
+                        bank.OpenAccount(name.Trim());
                         break;
 
                     case '2':
@@ -51,11 +61,8 @@
 
                         PrintAccounts(bank.GetAccounts());
 
-                        Console.Write("enter account number:");
-                        int accnum = int.Parse(Console.ReadLine());
-
-                        Console.Write("enter amount to deposit:");
-                        double amount = double.Parse(Console.ReadLine());
+                        int accnum = GetValidInt("Enter account number:");
+                        decimal amount = GetValidDecimal("enter amount to deposit:");
 
                         bool isSuccess = bank.DepositMoney(accnum, amount);
 
@@ -78,11 +85,9 @@
                         }
 
                         PrintAccounts(bank.GetAccounts());
-                        Console.Write("enter account number:");
-                        int accnum2 = int.Parse(Console.ReadLine());
-
-                        Console.Write("enter amount to withdraw:");
-                        double amount2 = double.Parse(Console.ReadLine());
+                        
+                        int accnum2 = GetValidInt("Enter account number:");
+                        decimal amount2 = GetValidDecimal("enter amount to withdraw:");
 
                         bool isSuccess2 = bank.WithdrawMoney(accnum2, amount2);
 
@@ -100,22 +105,21 @@
 
 
                     case '5':
-                        if (bank.GetAccounts().Count == 0)
+                        if(bank.GetAccounts().Count < 2)
                         {
-                            Console.WriteLine("No account found please open an account first.");
+                            Console.WriteLine("There must be at least two accounts in the system in order to perform a transfer.");
                             break;
                         }
 
                         PrintAccounts(bank.GetAccounts());
 
-                        Console.Write("enter sender account number:");
-                        int senderNum = int.Parse(Console.ReadLine());
+                        
+                        int senderNum = GetValidInt("enter sender account number:");
 
-                        Console.Write("enter receiver account number:");
-                        int receiverNum = int.Parse(Console.ReadLine());
+                       
+                        int receiverNum = GetValidInt("enter receiver account number:");
 
-                        Console.Write("enter amount to transfer:");
-                        double amount3 = double.Parse(Console.ReadLine());
+                        decimal amount3 = GetValidDecimal("enter amount to transfer:");
 
                         bool isSuccess4 = bank.TransferMoney(senderNum, receiverNum, amount3);
                          
@@ -137,8 +141,8 @@
                         }
 
                         PrintAccounts(bank.GetAccounts());
-                        Console.Write("enter account number:");
-                        int accnum3 = int.Parse(Console.ReadLine());
+                        
+                        int accnum3 = GetValidInt("enter account number:");
 
                         bool isSuccess3 = bank.DeleteAccount(accnum3);
 
@@ -177,6 +181,36 @@
             {
                 Console.WriteLine($"Name: {acc.Name}  Account Number: {acc.AccountNumber}  Balance: {acc.Balance}");
             }
+        }
+
+        public static bool IsValidName(string name)
+        {
+            return !string.IsNullOrWhiteSpace(name)
+           && name.Any(char.IsLetter)
+           && name.All(c => char.IsLetter(c) || char.IsWhiteSpace(c));
+        }
+
+        public static int GetValidInt(string prompt)
+        {
+            int value;
+            Console.Write(prompt);
+            while (!int.TryParse(Console.ReadLine(), out value))
+            {
+                Console.Write("Invalid input! Enter again:");
+            }
+
+            return value;
+        }
+
+        public static decimal GetValidDecimal(string prompt)
+        {
+            decimal value;
+            Console.Write(prompt);
+            while (!decimal.TryParse(Console.ReadLine(), out value) || value <= 0)
+            {
+                Console.Write("Invalid input! Enter again:");
+            }
+            return value;
         }
     }
 }

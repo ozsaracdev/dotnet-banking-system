@@ -37,7 +37,7 @@ namespace ConsoleApp2
             return -1;
         }
 
-        public bool DepositMoney(int accountNumber, double amount)
+        public bool DepositMoney(int accountNumber, decimal amount)
         {
             int index = FindAccountIndex(accountNumber);
 
@@ -49,7 +49,7 @@ namespace ConsoleApp2
             return accounts[index].deposit(amount);
         }
 
-        public bool WithdrawMoney(int accountNumber, double amount)
+        public bool WithdrawMoney(int accountNumber, decimal amount)
         {
             int index = FindAccountIndex(accountNumber);
 
@@ -74,7 +74,7 @@ namespace ConsoleApp2
             return true;
         }
 
-        public bool TransferMoney(int senderNumber, int receiverNumber, double amount)
+        public bool TransferMoney(int senderNumber, int receiverNumber, decimal amount)
         {
             int senderIndex = FindAccountIndex(senderNumber);
             int receiverIndex = FindAccountIndex(receiverNumber);

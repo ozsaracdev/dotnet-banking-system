@@ -7,13 +7,14 @@ namespace ConsoleApp2
     public class Account
     {
         private string _name;
-        private double _balance;
+        private decimal _balance;
         private int _accountNumber;
 
-        public Account(string name, int accountNumber)
+        public Account(string name, int accountNumber, decimal balance = 0)
         {
             Name = name;
             AccountNumber = accountNumber;
+            Balance = balance;
         }
 
         public string Name
@@ -22,7 +23,7 @@ namespace ConsoleApp2
             set { _name = value; }
         }
 
-        public double Balance
+        public decimal Balance
         {
             get { return _balance; }
             private set {  _balance = value; } // private set yapmak degeri ilk defa verdikten sonra el ile degisemez sadece metotlar ile degisebilir withdraw deposit gibi
@@ -34,7 +35,7 @@ namespace ConsoleApp2
             private set { _accountNumber = value; }
         }
 
-        public bool deposit(double amount)
+        public bool deposit(decimal amount)
         {
             if(amount <= 0)
             {
@@ -47,7 +48,7 @@ namespace ConsoleApp2
             }
         }
 
-        public bool withdraw(double amount)
+        public bool withdraw(decimal amount)
         {
             if(amount <=0 || amount > _balance)
             {
